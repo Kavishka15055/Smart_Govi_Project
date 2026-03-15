@@ -28,8 +28,13 @@ class TransactionService {
   // Add Income Transaction
   async addIncome(transaction: Omit<IncomeTransaction, 'id' | 'createdAt'>): Promise<string> {
     try {
+      // Filter out undefined values as Firestore doesn't accept them
+      const cleanedTransaction = Object.fromEntries(
+        Object.entries(transaction).filter(([_, value]) => value !== undefined)
+      );
+      
       const docRef = await addDoc(collection(db, 'income'), {
-        ...transaction,
+        ...cleanedTransaction,
         type: 'income',
         date: Timestamp.fromDate(transaction.date),
         createdAt: Timestamp.now(),
@@ -44,8 +49,13 @@ class TransactionService {
   // Add Expense Transaction
   async addExpense(transaction: Omit<ExpenseTransaction, 'id' | 'createdAt'>): Promise<string> {
     try {
+      // Filter out undefined values as Firestore doesn't accept them
+      const cleanedTransaction = Object.fromEntries(
+        Object.entries(transaction).filter(([_, value]) => value !== undefined)
+      );
+      
       const docRef = await addDoc(collection(db, 'expenses'), {
-        ...transaction,
+        ...cleanedTransaction,
         type: 'expense',
         date: Timestamp.fromDate(transaction.date),
         createdAt: Timestamp.now(),
