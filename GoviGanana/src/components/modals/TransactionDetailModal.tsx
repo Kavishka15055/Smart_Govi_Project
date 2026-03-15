@@ -18,7 +18,7 @@ import {
   getTransactionIcon,
   getTransactionColor,
 } from '../../utils/transactionHelpers';
-import Button from '../../components/common/Button';
+import Button from '../common/Button';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const TransactionDetailModal: React.FC<TransactionDetailProps> = ({
